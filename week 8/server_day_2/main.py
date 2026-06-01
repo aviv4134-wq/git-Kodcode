@@ -21,8 +21,12 @@ def safe_get(url):
         return None
     else:
         raise Exception(respond.status_code)
+users_post = []
 for post in posts:
     for user in users:
-        if user['id'] == post['userId']:
-            print(f'{post['title']},{user['name']}')
+        if user['id'] == post['id']:
+            users_post.append(f'{post['title']},{user['name']}')
+            #print(f'{post['title']},{user['name']}')
+for user in users_post:
+    print(user)
 #safe_get('https://jsonplaceholder.typicode.com/posts')
