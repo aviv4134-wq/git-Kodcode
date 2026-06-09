@@ -1,21 +1,26 @@
-from fastapi import FastAPI
-import uvicorn
-import db
+from fastapi import FastAPI,HTTPException
+import queries
+
 app = FastAPI()
-@app.post("/setup")
-def run_setup():
-    return {"status": "setup triggered"}
 
-@app.get("/schema")
-def get_schema():
-    columns = db.get_schema() 
-    return {"columns": columns}
+@app.get('/soldiers')
+def show_soldiers(mrank:str|None = None,ssort:str | None = None ,unit:str | None = None):
+    if mrank:
+       return queries.get_by_rank(mrank)
+    elif unit:
+        return queries.get_by_unit(unit)
+    elif ssort:
+        return queries.get_active_sorted(ssort)
+    else:
+        return queries.get_sorted_by_id()
+@app.get('/soldiers/units')
+def show_units():
+    return queries.get_distent_unit()
+@app.get('/soldiers/search')
+def show_soldiers_by_names(name:str):
+    return queries.search_by_name(name)
+@app.get('/soldiers/missing-rank')
+def show_empty_rank():
+    return queries.get_missing_rank()
 
-@app.get("/soldiers")
-def get_all_soldiers():
-    return {"soldiers": []}
 
-
-
-if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
