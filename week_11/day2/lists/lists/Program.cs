@@ -33,7 +33,7 @@ namespace day2
 
         }
 
-        static void Report(int id) // version 1: no parameters
+        static void Report() // version 1: no parameters
         
         { 
             Console.WriteLine($"{tracks.Count} tracks");
@@ -44,13 +44,13 @@ namespace day2
         {
             int i = tracks.IndexOf(id);
             if (i >= 0) Console.WriteLine($"{id}: {speeds[i]} kn");
-            else Console.WriteLine("id not fount");
+            else Console.WriteLine("id not fount"); ;
                      
         }
         
                
 
-
+        
         
     }
 }
